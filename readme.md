@@ -1,7 +1,7 @@
 OSX Setup
 
 ```
-$(curl -fsSL https://raw.githubusercontent.com/devalnor/osx/master/install.sh)
+curl -o- https://raw.githubusercontent.com/devalnor/osx/master/install.sh | bash
 ```
 
 
