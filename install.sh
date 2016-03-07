@@ -86,8 +86,7 @@ brew install \
 # Install Brew Cask Packages
 #
 
-brew cask install --appdir=/Applications \
-    
+sudo brew cask install --appdir=/Applications \
     google-chrome \
     iterm2 \
     moom \
