@@ -84,7 +84,6 @@ brew install \
    dark-mode \
    dockutil \
    node \
-   grep \
    zsh \
    zsh-completions
 
