@@ -82,6 +82,12 @@ brew install \
    vim --override-system-vi \
    tccutil \
    dark-mode \
+   dockutil \
+   node \
+   grep \
+   zsh \
+   zsh-completions
+
 
 #
 # Install Brew Cask Packages
@@ -105,15 +111,19 @@ brew cask install \
     vlc \
     skype \
 
+
+# Quicklooks and helpers
+
 sudo -v
 brew cask install \
-  quicklook-json
-  quicklook-csv
-  betterzipql
-  qlstephen
-  qlcolorcode
-  colorpicker-developer
-  colorpicker-hex
+  quicklook-json \
+  quicklook-csv \
+  betterzipql \
+  qlstephen \
+  qlmarkdown \
+  qlcolorcode \
+  colorpicker-developer \
+  colorpicker-hex \
 
 # Need to be moved into /Applications to allow sandboxing and extensions to work
 brew cask install google-chrome
