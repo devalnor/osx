@@ -30,7 +30,10 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
+
+#
 # Install Xcode
+#
 
 echo "Checking Xcode..."
 
@@ -54,6 +57,7 @@ fi
 #
 # Install Homebrew
 #
+
 echo -n "Install Homebrew..."
 which -s brew
 if [[ $? != 0 ]] ; then
@@ -67,9 +71,6 @@ else
     # Upgrade any already-installed formulae.
     brew upgrade --all
 fi
-
-
-# --[ Applications ]--
 
 #
 # Install Brew Packages
@@ -86,13 +87,45 @@ brew install \
 # Install Brew Cask Packages
 #
 
-sudo brew cask install --appdir=/Applications \
+sudo -v
+echo 'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.bash_profile
+source ~/.bash_profile 
+
+brew cask install \
     google-chrome \
     iterm2 \
     moom \
     1password \
     synology-cloud-station \
     dropbox \
+    sequel-pro \
+    hipchat \
+    sourcetree \
+    the-unarchiver
+    vlc \
+    skype \
+
+sudo -v
+brew cask install \
+  quicklook-json
+  quicklook-csv
+  betterzipql
+  qlstephen
+  qlcolorcode
+  colorpicker-developer
+  colorpicker-hex
+
+# Need to be moved into /Applications to allow sandboxing and extensions to work
+brew cask install google-chrome
+rm /Applications/Google\ Chrome.app
+sudo cp -R /opt/homebrew-cask/Caskroom/google-chrome/latest/Google\ Chrome.app /Applications
+
+
+
+# Need to be moved into /Applications to allow sandboxing and extensions to work
+brew cask install google-chrome
+rm /Applications/Google\ Chrome.app
+sudo cp -R /opt/homebrew-cask/Caskroom/google-chrome/latest/Google\ Chrome.app /Applications
 
 # Modify OS X's accessibility database
 sudo tccutil -i com.manytricks.Moom
@@ -103,13 +136,39 @@ dark-mode --mode Dark
 
 # Add Icon 
 echo -n "Updating Dock..."
-defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Google Chrome.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+
+dockutil --remove "Contacts" --no-restart
+dockutil --remove "Notes" --no-restart
+dockutil --remove "Maps" --no-restart
+dockutil --remove "FaceTime" --no-restart
+dockutil --remove "Photo Booth" --no-restart
+dockutil --remove "iBooks" --no-restart
+dockutil --remove "App Store" --no-restart
+dockutil --remove "Launchpad" --no-restart
+dockutil --remove "Pages" --no-restart
+dockutil --remove "Numbers" --no-restart
+dockutil --remove "Keynote" --no-restart
+dockutil --remove "iPhoto" --no-restart
+dockutil --remove "Reminders" --no-restart
+dockutil --remove "Microsoft Outlook" --no-restart
+dockutil --remove "Microsoft Excel" --no-restart
+dockutil --remove "Microsoft PowerPoint" --no-restart
+dockutil --remove "Microsoft Word" --no-restart
+dockutil --remove "Terminal" --no-restart
+
+dockutil --add /Applications/Google\ Chrome.app --no-restart
+dockutil --add /Applications/Firefox.app --no-restart
+dockutil --add /Applications/Sequel\ Pro.app --no-restart
+dockutil --add /Applications/Hipchat.app --no-restart
+dockutil --add /Applications/Skype.app --no-restart
+dockutil --add /Applications/iTerm.app --no-restart
 
 killall Dock
 echo "Done"
 
-# --[ Privacy ]--
+#
+# Privacy
+#
 
 # fix-macosx by Landon Fuller
 echo "• Applying fix-macosx by Landon Fuller"
